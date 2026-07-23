@@ -5,8 +5,10 @@ weight: 11
 part: "beyond"
 ---
 
-This is a spec, not a product. It came out of building infrastructure tooling and watching which properties actually made a system safe to hand to someone new. Most of it is old operations wisdom, sharpened by the fact that the newest hire is now sometimes a machine.
+This is a spec, not a product. It came together from two essays written toward the same idea from different directions.
 
-Jake Gaylor's [Agent-Ready Infrastructure](https://jakegaylor.com/blog/posts/agent-ready-infrastructure/) is the direct seed. His competent stranger and this list are the same idea from two sides. Build the system so a stranger can operate it on day one, and you have built the system an agent can operate on every day after.
+Jake Gaylor's [Agent-Ready Infrastructure](https://jakegaylor.com/blog/posts/agent-ready-infrastructure/) named the properties that make a system safe to hand to a competent stranger. His stranger and this list are the same test. Build the system so a stranger can operate it on day one, and you have built the system an agent can operate on every day after.
+
+[Honor the lower layer](https://lex00.github.io/posts/honor-the-lower-layer/) argued the other half: what it takes for the thing a newcomer changes to be honest. A real language compiled to the platform's own spec, fixed enough to check without running. That is factor I, and most of what follows leans on it.
 
 The format is borrowed, gratefully, from [12factor.net](https://12factor.net/).

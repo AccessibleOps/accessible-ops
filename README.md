@@ -2,7 +2,7 @@
 
 The properties that make infrastructure safe to hand off — to a new engineer or to an AI agent — so the judgment stays with a human and the rest is safe to delegate.
 
-A short manifesto in the structure of [12factor.net](https://12factor.net/). A spec, not a product — seeded by Jake Gaylor's [Agent-Ready Infrastructure](https://jakegaylor.com/blog/posts/agent-ready-infrastructure/).
+A short manifesto in the structure of [12factor.net](https://12factor.net/). A spec, not a product — seeded by Jake Gaylor's [Agent-Ready Infrastructure](https://jakegaylor.com/blog/posts/agent-ready-infrastructure/) and [Honor the lower layer](https://lex00.github.io/posts/honor-the-lower-layer/).
 
 ## Develop
 
