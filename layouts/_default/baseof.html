@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ .Site.Params.description }}">
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="site-title" href="{{ "/" | relURL }}">Accessible Ops</a>
+    <p class="tagline">{{ .Site.Params.tagline }}</p>
+  </header>
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer class="site-footer">
+    <p>A spec, not a product. Seeded by Jake Gaylor&rsquo;s <a href="https://jakegaylor.com/blog/posts/agent-ready-infrastructure/">Agent-Ready Infrastructure</a>, in the format of <a href="https://12factor.net/">12factor.net</a>.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,8 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Accessible Ops"
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  description = "The properties that make infrastructure safe to hand off, to a person or an agent."
+  tagline = "Build infrastructure a competent stranger can operate on day one — whether the stranger is a person or an agent."
