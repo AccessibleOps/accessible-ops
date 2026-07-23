@@ -1,11 +1,12 @@
 {{ define "main" }}
-<article class="factor">
+<article class="{{ if .Params.part }}factor{{ else }}page{{ end }}">
   {{ with .Params.roman }}<p class="factor-num">{{ . }}</p>{{ end }}
   <h1>{{ .Title }}</h1>
   {{ .Content }}
 
+  {{ if .Params.part }}
   <nav class="pager" aria-label="Between factors">
-    {{ $ordered := .Site.RegularPages.ByWeight }}
+    {{ $ordered := (where .Site.RegularPages "Params.part" "in" (slice "factor" "beyond")).ByWeight }}
     {{ range $i, $p := $ordered }}
       {{ if eq $p.RelPermalink $.RelPermalink }}
         <span class="pager-prev">{{ if gt $i 0 }}{{ $prev := index $ordered (sub $i 1) }}<a href="{{ $prev.RelPermalink }}">&larr; {{ $prev.Title }}</a>{{ end }}</span>
@@ -14,5 +15,6 @@
       {{ end }}
     {{ end }}
   </nav>
+  {{ end }}
 </article>
 {{ end }}
