@@ -1,6 +1,7 @@
 ---
-title: "Least privilege by handle"
-slug: "least-privilege-by-handle"
+title: "Named secrets, least privilege"
+slug: "named-secrets-least-privilege"
+aliases: ["/least-privilege-by-handle/"]
 weight: 5
 roman: "V"
 part: "factor"
