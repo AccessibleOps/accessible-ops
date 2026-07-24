@@ -6,6 +6,7 @@
   <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ .Site.Params.description }}">
   <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  {{ partial "posthog.html" . }}
 </head>
 <body>
   <header class="site-header">
