@@ -22,3 +22,7 @@ hugo               # build to ./public
 - `static/css/style.css` — styling.
 
 Set `baseURL` in `hugo.toml` before deploying to a real domain or a project-pages subpath.
+
+## Analytics
+
+PostHog (`layouts/partials/posthog.html`) loads only when a project API key is present. In production it's supplied by the `POSTHOG_API_KEY` repo variable (Settings → Secrets and variables → Actions → Variables), injected at build time as `HUGO_PARAMS_POSTHOGAPIKEY` in `.github/workflows/hugo.yml`. Local builds have no key set, so `hugo server` never sends events.
