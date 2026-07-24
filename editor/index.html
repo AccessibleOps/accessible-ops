@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessible Ops — Editor</title>
+<style>
+  :root {
+    --ink: #1a1a1a; --muted: #666; --faint: #999;
+    --rule: #e4e4e4; --link: #1a5fb4; --bg: #ffffff; --panel: #fafafa;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink); background: var(--bg); margin: 0; font-size: 15px; line-height: 1.5;
+  }
+  .app { display: flex; height: 100vh; }
+
+  /* sidebar */
+  .side {
+    width: 250px; flex: none; border-right: 1px solid var(--rule);
+    overflow-y: auto; padding: 1.1rem 0.9rem; background: var(--panel);
+  }
+  .side h1 { font-size: 1.02rem; font-weight: 800; margin: 0 0 1rem; letter-spacing: -0.01em; }
+  .side h2 {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--faint); margin: 1.2rem 0 0.3rem; font-weight: 700;
+  }
+  .side button.item {
+    display: block; width: 100%; text-align: left; background: none; border: 0;
+    padding: 0.42rem 0.5rem; border-radius: 6px; cursor: pointer; color: var(--ink);
+    font: inherit; font-size: 0.92rem;
+  }
+  .side button.item:hover { background: #f0f0f0; }
+  .side button.item.active { background: #e8eef7; }
+  .side .num { color: var(--faint); font-weight: 700; margin-right: 0.45rem; min-width: 1.6em; display: inline-block; }
+  .side .dirty::after { content: " ●"; color: #c07000; font-size: 0.7em; vertical-align: 2px; }
+  .side .newbtn {
+    margin-top: 1.2rem; width: 100%; padding: 0.45rem; border: 1px solid var(--rule);
+    border-radius: 6px; background: #fff; cursor: pointer; font: inherit; font-size: 0.88rem; color: var(--muted);
+  }
+  .side .newbtn:hover { color: var(--link); border-color: var(--link); }
+
+  /* main */
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+  .toolbar {
+    display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem 1.2rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .toolbar .fname { font-family: ui-monospace, Menlo, monospace; font-size: 0.82rem; color: var(--muted); }
+  .toolbar .spacer { flex: 1; }
+  .toolbar .status { font-size: 0.82rem; color: var(--faint); }
+  .toolbar .status.err { color: #b3261e; }
+  .toolbar button.save {
+    padding: 0.4rem 1.1rem; border: 0; border-radius: 6px; background: var(--link);
+    color: #fff; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  .toolbar button.save:disabled { background: #b9c6d9; cursor: default; }
+
+  .editor { flex: 1; display: flex; min-height: 0; }
+  .pane { flex: 1; min-width: 0; overflow-y: auto; padding: 1.2rem 1.4rem; }
+  .pane.write { border-right: 1px solid var(--rule); display: flex; flex-direction: column; }
+
+  .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 1rem; margin-bottom: 1rem; flex: none; }
+  .meta .wide { grid-column: 1 / -1; }
+  .field label {
+    display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--faint); font-weight: 700; margin-bottom: 0.2rem;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 0.42rem 0.55rem; border: 1px solid var(--rule); border-radius: 6px;
+    font: inherit; color: var(--ink); background: #fff;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus, #body:focus {
+    outline: none; border-color: var(--link); box-shadow: 0 0 0 2px rgba(26,95,180,0.12);
+  }
+  #body {
+    flex: 1; width: 100%; resize: none; border: 1px solid var(--rule); border-radius: 6px;
+    padding: 0.8rem; font: inherit; font-size: 0.95rem; line-height: 1.62; min-height: 12rem;
+  }
+  .bodyhead { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 0.2rem; }
+  .bodyhead .count { font-size: 0.75rem; color: var(--faint); }
+
+  /* preview — mirrors the site's factor page */
+  .preview { max-width: 40rem; font-size: 17px; line-height: 1.62; }
+  .preview .factor-num { font-size: 3rem; font-weight: 800; color: var(--faint); line-height: 1; margin: 0 0 0.2rem; }
+  .preview h1 { font-size: 1.8rem; line-height: 1.2; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
+  .preview .summary { color: var(--muted); font-style: italic; margin: 0 0 1.2rem; }
+  .preview p { margin: 0.9rem 0; }
+  .preview a { color: var(--link); text-decoration: none; }
+  .preview a:hover { text-decoration: underline; }
+  .preview code { background: #f4f4f4; padding: 0.05em 0.35em; border-radius: 3px; font-size: 0.9em; }
+
+  .empty { color: var(--faint); padding: 3rem; text-align: center; flex: 1; }
+  dialog {
+    border: 1px solid var(--rule); border-radius: 10px; padding: 1.2rem 1.4rem; width: 22rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  dialog h3 { margin: 0 0 0.8rem; font-size: 1rem; }
+  dialog .row { margin-bottom: 0.7rem; }
+  dialog .actions { display: flex; justify-content: flex-end; gap: 0.6rem; margin-top: 1rem; }
+  dialog button { padding: 0.4rem 0.9rem; border-radius: 6px; font: inherit; cursor: pointer; border: 1px solid var(--rule); background: #fff; }
+  dialog button.primary { background: var(--link); border-color: var(--link); color: #fff; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="side">
+    <h1>Accessible Ops</h1>
+    <div id="nav"></div>
+    <button class="newbtn" id="newBtn">+ New attribute</button>
+  </nav>
+
+  <div class="main">
+    <div class="toolbar">
+      <span class="fname" id="fname">—</span>
+      <span class="spacer"></span>
+      <span class="status" id="status"></span>
+      <button class="save" id="saveBtn" disabled>Save</button>
+    </div>
+
+    <div class="editor" id="editorWrap" hidden>
+      <div class="pane write">
+        <div class="meta">
+          <div class="field wide"><label>Title</label><input id="f_title"></div>
+          <div class="field"><label>Slug</label><input id="f_slug"></div>
+          <div class="field"><label>Roman</label><input id="f_roman" placeholder="e.g. IV"></div>
+          <div class="field"><label>Part</label>
+            <select id="f_part">
+              <option value="">— none —</option>
+              <option value="factor">factor</option>
+              <option value="beyond">beyond</option>
+            </select>
+          </div>
+          <div class="field"><label>Weight</label><input id="f_weight" type="number"></div>
+          <div class="field wide"><label>Summary</label><textarea id="f_summary" rows="2"></textarea></div>
+        </div>
+        <div class="bodyhead">
+          <label class="field" style="margin:0"><span style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--faint);font-weight:700">Body</span></label>
+          <span class="count" id="count"></span>
+        </div>
+        <textarea id="body" spellcheck="true"></textarea>
+      </div>
+      <div class="pane"><div class="preview" id="preview"></div></div>
+    </div>
+    <div class="empty" id="emptyMsg">Select a file to edit.</div>
+  </div>
+</div>
+
+<dialog id="newDialog">
+  <h3>New attribute</h3>
+  <div class="row field"><label>Title</label><input id="n_title" placeholder="e.g. Observable by default"></div>
+  <div class="row field"><label>Part</label>
+    <select id="n_part"><option value="factor">factor</option><option value="beyond">beyond</option></select>
+  </div>
+  <div class="actions">
+    <button id="n_cancel">Cancel</button>
+    <button class="primary" id="n_create">Create</button>
+  </div>
+</dialog>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const FIELD_IDS = ["title", "slug", "roman", "part", "weight", "summary"];
+
+let files = [];            // [{filename, fields, body, mtimeMs}]
+let current = null;        // filename
+let dirtySet = new Set();  // filenames with unsaved edits
+let drafts = {};           // filename -> {edited:{}, body}
+
+const fieldMap = (f) => Object.fromEntries(f.fields.map(({key, value}) => [key, value]));
+
+function romanize(n) {
+  const t = [[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  let out = ""; for (const [v, s] of t) while (n >= v) { out += s; n -= v; }
+  return out;
+}
+
+// ---- markdown preview (paragraphs, links, strong/em, code) ----
+function esc(s) { return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function inline(s) {
+  return esc(s)
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+}
+function mdToHtml(md) {
+  return md.trim().split(/\n{2,}/).map((p) => `<p>${inline(p.trim()).replace(/\n/g, "<br>")}</p>`).join("");
+}
+
+// ---- state helpers ----
+function draftFor(name) {
+  if (!drafts[name]) {
+    const f = files.find((x) => x.filename === name);
+    drafts[name] = { edited: { ...fieldMap(f) }, body: f.body };
+  }
+  return drafts[name];
+}
+
+function renderNav() {
+  const groups = { factor: [], beyond: [], page: [] };
+  for (const f of files) {
+    const m = fieldMap(f);
+    const part = m.part === "factor" || m.part === "beyond" ? m.part : "page";
+    groups[part].push({ ...f, m });
+  }
+  groups.factor.sort((a, b) => (a.m.weight ?? 99) - (b.m.weight ?? 99));
+  groups.beyond.sort((a, b) => (a.m.weight ?? 99) - (b.m.weight ?? 99));
+  groups.page.sort((a, b) => a.filename.localeCompare(b.filename));
+
+  const btn = (f, num) => {
+    const dirty = dirtySet.has(f.filename) ? " dirty" : "";
+    const active = f.filename === current ? " active" : "";
+    const numHtml = num ? `<span class="num">${esc(num)}</span>` : "";
+    return `<button class="item${active}${dirty}" data-f="${esc(f.filename)}">${numHtml}${esc(f.m.title || f.filename)}</button>`;
+  };
+  let html = "";
+  if (groups.factor.length) html += `<h2>The factors</h2>` + groups.factor.map((f) => btn(f, f.m.roman)).join("");
+  if (groups.beyond.length) html += `<h2>Beyond the factors</h2>` + groups.beyond.map((f) => btn(f)).join("");
+  if (groups.page.length) html += `<h2>Pages</h2>` + groups.page.map((f) => btn(f)).join("");
+  $("nav").innerHTML = html;
+  for (const b of document.querySelectorAll(".side button.item")) {
+    b.onclick = () => select(b.dataset.f);
+  }
+}
+
+function select(name) {
+  current = name;
+  const d = draftFor(name);
+  for (const k of FIELD_IDS) $("f_" + k).value = d.edited[k] ?? "";
+  $("body").value = d.body;
+  $("fname").textContent = "content/" + name;
+  $("editorWrap").hidden = false;
+  $("emptyMsg").hidden = true;
+  setStatus("");
+  renderNav();
+  renderPreview();
+  updateSaveState();
+}
+
+function collect() {
+  const d = draftFor(current);
+  for (const k of FIELD_IDS) {
+    const v = $("f_" + k).value;
+    d.edited[k] = k === "weight" ? (v === "" ? "" : Number(v)) : v;
+  }
+  d.body = $("body").value;
+  return d;
+}
+
+function markDirty() {
+  if (!current) return;
+  collect();
+  dirtySet.add(current);
+  renderNav();
+  renderPreview();
+  updateSaveState();
+}
+
+function updateSaveState() {
+  $("saveBtn").disabled = !current || !dirtySet.has(current);
+}
+
+function setStatus(msg, err) {
+  const el = $("status");
+  el.textContent = msg;
+  el.className = "status" + (err ? " err" : "");
+}
+
+function renderPreview() {
+  if (!current) return;
+  const d = draftFor(current);
+  const words = d.body.trim() ? d.body.trim().split(/\s+/).length : 0;
+  $("count").textContent = words + " words";
+  const roman = d.edited.roman ? `<div class="factor-num">${esc(d.edited.roman)}</div>` : "";
+  const summary = d.edited.summary ? `<p class="summary">${inline(d.edited.summary)}</p>` : "";
+  $("preview").innerHTML = roman + `<h1>${esc(d.edited.title || "")}</h1>` + summary + mdToHtml(d.body);
+}
+
+// ---- load & save ----
+async function load() {
+  files = await (await fetch("/api/files")).json();
+  renderNav();
+}
+
+async function save(createName) {
+  const name = createName || current;
+  if (!name) return;
+  const d = draftFor(name);
+  const file = files.find((x) => x.filename === name);
+  setStatus("Saving…");
+  const res = await fetch("/api/files/" + encodeURIComponent(name), {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      edited: d.edited,
+      body: d.body,
+      baseMtimeMs: file?.mtimeMs,
+      create: !!createName,
+    }),
+  });
+  const out = await res.json();
+  if (!res.ok) { setStatus(out.error || "Save failed", true); return false; }
+  if (file) { file.mtimeMs = out.mtimeMs; file.fields = out.fields; file.body = d.body; }
+  dirtySet.delete(name);
+  setStatus("Saved " + new Date().toLocaleTimeString());
+  renderNav();
+  updateSaveState();
+  return true;
+}
+
+// ---- new file ----
+$("newBtn").onclick = () => { $("n_title").value = ""; $("newDialog").showModal(); };
+$("n_cancel").onclick = () => $("newDialog").close();
+$("n_create").onclick = async () => {
+  const title = $("n_title").value.trim();
+  if (!title) return;
+  const part = $("n_part").value;
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const weights = files.map((f) => fieldMap(f).weight).filter((w) => typeof w === "number");
+  const weight = (weights.length ? Math.max(...weights) : 0) + 1;
+  const filename = `${weight}-${slug}.md`;
+  const romanCount = files.filter((f) => fieldMap(f).part === "factor").length;
+  drafts[filename] = {
+    edited: {
+      title, slug, weight,
+      roman: part === "factor" ? romanize(romanCount + 1) : "",
+      part, summary: "",
+    },
+    body: "",
+  };
+  const ok = await save(filename);
+  if (ok) {
+    $("newDialog").close();
+    await load();
+    select(filename);
+  }
+};
+
+// ---- wiring ----
+for (const k of FIELD_IDS) $("f_" + k).addEventListener("input", markDirty);
+$("body").addEventListener("input", markDirty);
+$("saveBtn").onclick = () => save();
+document.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && e.key === "s") { e.preventDefault(); save(); }
+});
+window.addEventListener("beforeunload", (e) => {
+  if (dirtySet.size) e.preventDefault();
+});
+
+load().then(() => {
+  const first = files.find((f) => fieldMap(f).weight === 1) || files[0];
+  if (first) select(first.filename);
+});
+</script>
+</body>
+</html>
