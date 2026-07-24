@@ -11,4 +11,4 @@ Honoring the lower layer means the operator knows how the platform underneath wo
 
 The test is prediction before anything runs. A competent stranger reads the source and says what the platform will be told to do, and is right, from the text alone. The same source always produces the same spec, worked out from what you can read and only that, and settled before the platform is touched.
 
-There is more than one way to clear this. A compiler that folds a language down to the platform's spec clears it, and so does a configuration format that evaluates to the spec from the source alone. What counts is the property, whatever shape the tool takes. Writing the lower layer by hand is optional. Build as high as you like on top, as long as the spec stays readable and predictable before it runs.
+Writing the lower layer by hand is optional. What counts is the property, whatever shape the tool takes. Build as high as you like on top, as long as the spec stays readable and predictable before it runs.
