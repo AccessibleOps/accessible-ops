@@ -47,6 +47,38 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .home-intro { max-width: 42rem; margin: 0 0 1.3rem; }
 .home-intro p { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin: 0; }
 
+/* home property bars */
+.props { margin: 1.2rem 0 0; }
+.prop { border-top: 1px solid var(--rule); }
+.props .prop:last-of-type { border-bottom: 1px solid var(--rule); }
+.prop > summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.3rem 0.9rem;
+  padding: 0.7rem 0.2rem;
+}
+.prop > summary::-webkit-details-marker { display: none; }
+.prop > summary::marker { content: ""; }
+.prop > summary::before {
+  content: ""; flex: none; width: 0; height: 0; align-self: center;
+  border-left: 5px solid var(--faint);
+  border-top: 4px solid transparent; border-bottom: 4px solid transparent;
+  transition: transform 0.15s ease;
+}
+.prop[open] > summary::before { transform: rotate(90deg); border-left-color: var(--link); }
+@media (prefers-reduced-motion: reduce) { .prop > summary::before { transition: none; } }
+.prop-rn { color: var(--faint); font-weight: 700; font-variant-numeric: tabular-nums; min-width: 2em; }
+.prop-title { font-weight: 600; color: var(--ink); font-size: 1rem; }
+.prop > summary:hover .prop-title { color: var(--link); }
+.prop-tagline { margin-left: auto; flex: 0 1 24rem; color: var(--muted); font-size: 0.86rem; line-height: 1.4; }
+.prop[open] { background: var(--panel); }
+.prop-body { padding: 0.1rem 0 1rem 1.35rem; max-width: 42rem; }
+.prop-body > p:first-child { margin-top: 0.2rem; }
+.prop-body p { margin: 0.7rem 0; color: var(--ink); font-size: 0.95rem; line-height: 1.6; }
+.prop-body .prop-link { margin-top: 0.9rem; }
+.prop-body .prop-link a { font-size: 0.85rem; color: var(--link); font-weight: 600; }
+.props-more { margin: 1.5rem 0 0; font-size: 0.9rem; }
+.props-more a { font-weight: 600; }
+
 /* ---- prose blocks ---- */
 .intro, .page, .factor, .post-list { max-width: 42rem; }
 .intro h1, .page h1, .factor h1 { font-size: 1.9rem; line-height: 1.16; margin: 0 0 1rem; letter-spacing: -0.02em; }
