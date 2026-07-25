@@ -1,0 +1,122 @@
+<section class="scorecard" aria-label="Scorecard">
+  <h2>Who clears the factors today</h2>
+
+  <div class="sc-bands">
+    <div><h3>Synthesis</h3><p>Source becomes the platform's own spec, worked out from the text and settled before anything is touched.</p></div>
+    <div><h3>Ops</h3><p>A change reaches production as one reviewable diff, scoped to what it declares.</p></div>
+    <div><h3>Lifecycle</h3><p>The risky call waits for a human, the reversible one runs, and every change leaves a record.</p></div>
+  </div>
+
+  <div class="sc-legend" role="note" aria-label="Legend">
+    <span><b class="sym good">&#10003;</b> meets by design</span>
+    <span><b class="sym warn">&#9686;</b> partial &mdash; via add-ons, pipeline, or by hand</span>
+    <span><b class="sym bad">&#10007;</b> misses &mdash; the property doesn't hold</span>
+    <span><b class="sym na">&ndash;</b> out of scope for this kind of tool</span>
+  </div>
+
+  <div class="sc-scroll">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-factor" scope="col">Factor</th>
+          <th class="th-tool" scope="col">chant<span class="kind">TypeScript-as-Data, folded</span></th>
+          <th class="th-tool" scope="col">KCL &middot; CUE &middot; Pkl<span class="kind">typed config languages</span></th>
+          <th class="th-tool" scope="col">CDK &middot; Pulumi<span class="kind">TypeScript run as a program</span></th>
+          <th class="th-tool" scope="col">Terraform &middot; OpenTofu<span class="kind">HCL + state file</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="band"><th colspan="5" scope="colgroup">Synthesis <span class="note">&mdash; source becomes spec, before anything runs</span></th></tr>
+
+        <tr>
+          <td class="factor"><span class="rn">I</span><span class="fname"><a href="/honor-the-lower-layer/">Honor the lower layer</a></span><span class="fstate">Build in the platform's own terms, readable and predictable before anything runs.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Fold to native spec, no run</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Folds via its own DSL</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">Spec exists only after the program runs</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Declarative, but the real plan needs cloud + state</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">II</span><span class="fname"><a href="/correctness-left-of-the-commit/">The same check, left of the commit</a></span><span class="fstate">A change proves itself at the keystroke, the same check for a human and an agent.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Type + fold diagnostics at the keystroke, human and agent alike</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Schema check plus an LSP</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">TS types check; infra correctness needs a plan</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note"><span class="mono">validate</span> is shallow; the real check is <span class="mono">plan</span></span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">III</span><span class="fname"><a href="/documentation-is-law/">Documentation is Law</a></span><span class="fstate">The parts a machine can't infer belong in writing.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Typed lexicons + semantic lint + policy checks</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Schemas and constraints encode validity</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Types encode shape; policy via add-ons</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Thin types; policy via OPA or Sentinel</span></td>
+        </tr>
+
+        <tr class="band"><th colspan="5" scope="colgroup">Ops &amp; Lifecycle <span class="note">&mdash; the change reaches production and stays accountable</span></th></tr>
+
+        <tr>
+          <td class="factor"><span class="rn">IV</span><span class="fname"><a href="/one-path-to-prod/">One path to prod</a></span><span class="fstate">Every change arrives as a diff, in one place.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Every change is one typed change set against live</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Language only; bring your own pipeline</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Deploy through the tool's diff / up</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note"><span class="mono">plan</span> / <span class="mono">apply</span></span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">V</span><span class="fname"><a href="/named-secrets-least-privilege/">Named secrets, least privilege</a></span><span class="fstate">Access stays scoped and revocable; secrets referenced by name, not held.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">By reference, never held; keyless signing<sup>1</sup></span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs + IAM, but the program can read secrets at runtime</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs, but the state file can capture secrets</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VI</span><span class="fname"><a href="/bounded-blast-radius/">Bounded blast radius</a></span><span class="fstate">One mistake can't take down everything.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Owned-only by marker; per-env dial; blast lens</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Stack + IAM boundaries; refs can widen reach</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Module boundaries; shared state couples them</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VII</span><span class="fname"><a href="/reversible-before-risky/">Reversible before risky</a></span><span class="fstate">Undoable actions run; irreversible ones wait for a human.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Reversible runs ungated; destructive gated + saga rollback</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">CFN auto-rollback; no reversible / irreversible split</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">No rollback; re-apply a prior state by hand</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VIII</span><span class="fname"><a href="/escalate-the-judgment/">Escalate the judgment</a></span><span class="fstate">The newcomer executes; a human owns the call that matters.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Durable approval gate that survives a crash; orphans escalate</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">IX</span><span class="fname"><a href="/attributable/">Attributable</a></span><span class="fstate">Every change traces to who made it, what changed, and who approved it.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Append-only release ledger + approval in workflow history</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">CloudTrail / pipeline logs, outside the tool</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">State history / CI logs, outside the tool</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">X</span><span class="fname"><a href="/secret-rotation-is-cheap/">Secret rotation is cheap</a></span><span class="fstate">Any credential can be rotated as a routine change.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">By-reference makes rotation an out-of-band routine change<sup>2</sup></span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Runtime reads or state can pin the value</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">A state-captured secret needs state surgery</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sc-closing">
+    <p>Read down the columns and the shape is a division of labor, not a ranking. The <span class="term">config languages</span> clear synthesis and stop there, so the ops and lifecycle band is out of scope and you assemble it yourself. <span class="term">CDK and Pulumi</span> own operations but run your program to get there, so the spec doesn't exist until execution. <span class="term">Terraform and OpenTofu</span> operate through a state file, and their real check is a cloud plan that lands after the commit.</p>
+    <p>chant reaches every row because it folds source to the native spec <span class="term">by construction</span>, then carries that same change set through approval, rollback, and a record. It got there first. The columns are wide on purpose &mdash; there is room for more, and nothing here is chant's to keep.</p>
+  </div>
+
+  <div class="sc-notes">
+    <h4>Notes</h4>
+    <ol>
+      <li><b>Scoping and revocation are provider-native</b> (OIDC expiry, IAM). A tool's part is to reference a secret by name and never hold it, and to flag over-broad permissions at author time.</li>
+      <li><b>Rotation is cheap as a consequence, not a command.</b> When a secret enters only by reference and never lands in source or state, rotating the underlying credential is an out-of-band change the source never sees.</li>
+      <li><b>Formae</b> (Pkl-based) adds a reconcile loop and lifecycle, but authors in a config DSL and keeps a state database, so it sits with the config-language band on synthesis and carries the state the folded tools drop.</li>
+      <li><b>&#8220;Folds by construction&#8221;</b> means synthesis reduces the source to spec with no module execution &mdash; a call-as-value is structurally unrepresentable, and the semantic lint is a pre-flight diagnostic rather than the guarantee.</li>
+    </ol>
+  </div>
+</section>
