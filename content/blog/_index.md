@@ -2,4 +2,4 @@
 title: "Blog"
 ---
 
-Notes and longer arguments about the factors.
+Notes and longer arguments about the properties.
