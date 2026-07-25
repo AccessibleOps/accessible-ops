@@ -1,6 +1,7 @@
 ---
-title: "Written down"
-slug: "written-down"
+title: "Documentation is Law"
+slug: "documentation-is-law"
+aliases: ["/written-down/"]
 weight: 3
 roman: "III"
 part: "factor"

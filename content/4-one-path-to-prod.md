@@ -1,6 +1,7 @@
 ---
-title: "One reviewable path"
-slug: "one-reviewable-path"
+title: "One path to prod"
+slug: "one-path-to-prod"
+aliases: ["/one-reviewable-path/"]
 weight: 4
 roman: "IV"
 part: "factor"
