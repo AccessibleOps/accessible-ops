@@ -2,5 +2,19 @@
 <section class="home-intro">
   {{ .Content }}
 </section>
-{{ partial "scorecard.html" . }}
+<div class="props">
+  {{ range (where .Site.RegularPages "Params.part" "factor").ByWeight }}
+  <details class="prop">
+    <summary>
+      <span class="prop-rn">{{ .Params.roman }}</span>
+      <span class="prop-title">{{ .Title }}</span>
+      <span class="prop-tagline">{{ .Params.summary }}</span>
+    </summary>
+    <div class="prop-body">
+      {{ .Content }}
+      <p class="prop-link"><a href="{{ .RelPermalink }}">Full page &rarr;</a></p>
+    </div>
+  </details>
+  {{ end }}
+</div>
 {{ end }}
