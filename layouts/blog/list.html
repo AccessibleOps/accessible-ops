@@ -1,0 +1,23 @@
+{{ define "main" }}
+<article class="intro">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</article>
+
+{{ $posts := where .Pages "Type" "blog" }}
+{{ if $posts }}
+<nav class="factor-list post-list" aria-label="Posts">
+  <ol>
+    {{ range $posts.ByDate.Reverse }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ with .Params.description }}<span class="gloss">{{ . }}</span>{{ end }}
+      {{ with .Date }}<time class="postdate" datetime="{{ .Format "2006-01-02" }}">{{ .Format "January 2, 2006" }}</time>{{ end }}
+    </li>
+    {{ end }}
+  </ol>
+</nav>
+{{ else }}
+<p class="empty">Nothing yet.</p>
+{{ end }}
+{{ end }}

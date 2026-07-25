@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ .Site.Params.description }}">
+  <link rel="stylesheet" href="{{ "css/style.css" | relURL }}">
+  {{ partial "posthog.html" . }}
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ site.Home.RelPermalink }}">Accessible Ops</a>
+    <nav class="topnav" aria-label="Site">
+      <a href="{{ "blog/" | relURL }}"{{ if eq .Section "blog" }} aria-current="page"{{ end }}>Blog</a>
+      <a href="{{ "about/" | relURL }}"{{ if eq .RelPermalink (printf "%sabout/" site.Home.RelPermalink) }} aria-current="page"{{ end }}>About</a>
+      <a href="{{ "community/" | relURL }}"{{ if eq .RelPermalink (printf "%scommunity/" site.Home.RelPermalink) }} aria-current="page"{{ end }}>Community</a>
+      <a href="https://github.com/AccessibleOps/accessible-ops">GitHub</a>
+    </nav>
+  </header>
+  <main>
+    {{ block "main" . }}{{ end }}
+    <footer class="site-footer">
+      <p>A spec, not a product. Seeded by Jake Gaylor&rsquo;s <a href="https://jakegaylor.com/blog/posts/agent-ready-infrastructure/">Agent-Ready Infrastructure</a> and Alex Artigues&rsquo; <a href="https://lex00.github.io/posts/honor-the-lower-layer/">Honor the lower layer</a>, in the format of <a href="https://12factor.net/">12factor.net</a>.</p>
+    </footer>
+  </main>
+</body>
+</html>
