@@ -9,22 +9,36 @@
   {{ partial "posthog.html" . }}
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-bar">
-      <a class="site-title" href="{{ site.Home.RelPermalink }}">Accessible Ops</a>
-      <nav class="site-nav">
-        <a href="{{ "blog/" | relURL }}">Blog</a>
-        <a href="{{ "community/" | relURL }}">Community</a>
-        <a href="https://github.com/AccessibleOps/accessible-ops">GitHub</a>
+  <div class="shell">
+    <aside class="sidenav">
+      <a class="brand" href="{{ site.Home.RelPermalink }}">Accessible Ops</a>
+      {{ with .Site.Params.tagline }}<p class="brand-tag">{{ . }}</p>{{ end }}
+      <nav class="rail" aria-label="Site">
+        <a class="rail-lead" href="{{ site.Home.RelPermalink }}"{{ if $.IsHome }} aria-current="page"{{ end }}>Scorecard</a>
+        <ol class="rail-factors">
+          {{ range (where .Site.RegularPages "Params.part" "factor").ByWeight }}
+          <li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}><span class="rn">{{ .Params.roman }}</span><span>{{ .Title }}</span></a></li>
+          {{ end }}
+        </ol>
+        <ul class="rail-more">
+          {{ range (where .Site.RegularPages "Params.part" "beyond").ByWeight }}
+          <li><a href="{{ .RelPermalink }}"{{ if eq $.RelPermalink .RelPermalink }} aria-current="page"{{ end }}>{{ .Title }}</a></li>
+          {{ end }}
+          <li><a href="{{ "blog/" | relURL }}"{{ if eq $.Section "blog" }} aria-current="page"{{ end }}>Blog</a></li>
+        </ul>
+        <ul class="rail-meta">
+          <li><a href="{{ "about/" | relURL }}">About</a></li>
+          <li><a href="{{ "community/" | relURL }}">Community</a></li>
+          <li><a href="https://github.com/AccessibleOps/accessible-ops">GitHub</a></li>
+        </ul>
       </nav>
-    </div>
-    <p class="tagline">{{ .Site.Params.tagline }}</p>
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer class="site-footer">
-    <p>A spec, not a product. Seeded by Jake Gaylor&rsquo;s <a href="https://jakegaylor.com/blog/posts/agent-ready-infrastructure/">Agent-Ready Infrastructure</a> and Alex Artigues&rsquo; <a href="https://lex00.github.io/posts/honor-the-lower-layer/">Honor the lower layer</a>, in the format of <a href="https://12factor.net/">12factor.net</a>.</p>
-  </footer>
+    </aside>
+    <main>
+      {{ block "main" . }}{{ end }}
+      <footer class="site-footer">
+        <p>A spec, not a product. Seeded by Jake Gaylor&rsquo;s <a href="https://jakegaylor.com/blog/posts/agent-ready-infrastructure/">Agent-Ready Infrastructure</a> and Alex Artigues&rsquo; <a href="https://lex00.github.io/posts/honor-the-lower-layer/">Honor the lower layer</a>, in the format of <a href="https://12factor.net/">12factor.net</a>.</p>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>

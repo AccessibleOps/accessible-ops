@@ -1,21 +1,7 @@
 {{ define "main" }}
-<article class="intro">
+<section class="intro">
+  <h1>{{ .Title }}</h1>
   {{ .Content }}
-</article>
-
-<nav class="factor-list" aria-label="The factors">
-  <ol>
-    {{ range (where .Site.RegularPages "Params.part" "factor").ByWeight }}
-    <li>
-      <a href="{{ .RelPermalink }}"><span class="num">{{ .Params.roman }}.</span> {{ .Title }}</a>
-      {{ with .Params.summary }}<span class="gloss">{{ . }}</span>{{ end }}
-    </li>
-    {{ end }}
-  </ol>
-  <ul class="beyond">
-    {{ range (where .Site.RegularPages "Params.part" "beyond").ByWeight }}
-    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-    {{ end }}
-  </ul>
-</nav>
+</section>
+{{ partial "scorecard.html" . }}
 {{ end }}

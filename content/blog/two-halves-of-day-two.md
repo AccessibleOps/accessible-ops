@@ -2,6 +2,7 @@
 title: "The two halves of day two"
 date: 2026-07-24
 slug: "two-halves-of-day-two"
+aliases: ["/a-compiler-has-no-day-two/"]
 description: "The onboarding test runs on day one and every day after. Day two is authoring and applying, and the factors test both."
 ---
 
