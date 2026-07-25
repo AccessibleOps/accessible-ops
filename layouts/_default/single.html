@@ -2,6 +2,7 @@
 <article class="{{ if .Params.part }}factor{{ else }}page{{ end }}">
   {{ with .Params.roman }}<p class="factor-num">{{ . }}</p>{{ end }}
   <h1>{{ .Title }}</h1>
+  {{ with .Params.summary }}<p class="factor-lead">{{ . }}</p>{{ end }}
   {{ .Content }}
 
   {{ if .Params.part }}

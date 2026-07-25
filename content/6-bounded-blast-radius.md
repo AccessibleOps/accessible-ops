@@ -7,4 +7,4 @@ part: "factor"
 summary: "One mistake can't take down everything."
 ---
 
-One mistake should not be able to take down everything. Cap what a single change can touch, by scope, by rate, by environment. The point of a bound is that you can survive the newcomer's worst day, which is the only way delegation is ever safe.
+Cap what a single change can touch, by scope, by rate, by environment. The point of a bound is that you can survive the newcomer's worst day, which is the only way delegation is ever safe.

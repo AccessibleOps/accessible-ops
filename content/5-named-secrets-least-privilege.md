@@ -5,7 +5,7 @@ aliases: ["/least-privilege-by-handle/"]
 weight: 5
 roman: "V"
 part: "factor"
-summary: "Scoped, revocable access; secrets by reference, never the master key."
+summary: "Access stays scoped and revocable, and secrets are referenced by name rather than held."
 ---
 
-A newcomer gets scoped, revocable access, and references secrets by name rather than holding them. You would not hand a new hire the root credential on day one, and an agent should have even less standing power. Access that is narrow and revocable is what lets you say yes to delegation at all.
+You would not hand a new hire the root credential on day one, and an agent should have even less standing power. Access that is narrow and revocable is what lets you say yes to delegation at all.
