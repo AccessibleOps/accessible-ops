@@ -126,10 +126,10 @@ main { min-width: 0; }
 .sc-legend .sym { font-weight: 700; width: 1em; text-align: center; }
 .sym.good { color: var(--good); } .sym.warn { color: var(--warn); } .sym.bad { color: var(--bad); } .sym.na { color: var(--na); }
 .sc-scroll { overflow-x: auto; border: 1px solid var(--rule-strong); border-radius: 8px; }
-.scorecard table { border-collapse: collapse; width: 100%; min-width: 44rem; }
+.scorecard table { border-collapse: collapse; width: 100%; min-width: 56rem; }
 .scorecard th, .scorecard td { text-align: left; vertical-align: top; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--rule); }
 .scorecard thead th { background: var(--panel-2); border-bottom: 2px solid var(--rule-strong); font-size: 0.9rem; font-weight: 700; }
-.scorecard thead .th-factor { width: 24%; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); }
+.scorecard thead .th-factor { width: 20%; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--faint); }
 .scorecard thead .th-tool .kind { display: block; font-weight: 400; font-size: 0.72rem; color: var(--faint); margin-top: 0.15rem; }
 .scorecard .band th {
   background: var(--panel); border-bottom: 1px solid var(--rule-strong);
