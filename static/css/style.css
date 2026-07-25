@@ -79,6 +79,11 @@ a:hover { text-decoration: underline; }
 .factor p { margin: 0.9rem 0; }
 .factor code { background: #f4f4f4; padding: 0.05em 0.35em; border-radius: 3px; font-size: 0.9em; }
 
+/* blog */
+.post-date { color: var(--faint); font-size: 0.9rem; margin: 0 0 1.3rem; }
+.post-list .postdate { display: block; color: var(--faint); font-size: 0.82rem; margin-top: 0.25rem; }
+.empty { color: var(--muted); }
+
 .pager {
   display: flex;
   justify-content: space-between;
