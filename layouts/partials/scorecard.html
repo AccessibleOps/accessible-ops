@@ -22,18 +22,20 @@
           <th class="th-tool" scope="col">chant<span class="kind">TypeScript-as-Data, folded</span></th>
           <th class="th-tool" scope="col">KCL &middot; CUE &middot; Pkl<span class="kind">typed config languages</span></th>
           <th class="th-tool" scope="col">Formae<span class="kind">Pkl + reconcile, with a database</span></th>
+          <th class="th-tool" scope="col">ConfigHub<span class="kind">spec-as-data in a store</span></th>
           <th class="th-tool" scope="col">CDK &middot; Pulumi<span class="kind">TypeScript run as a program</span></th>
           <th class="th-tool" scope="col">Terraform &middot; OpenTofu<span class="kind">HCL + state file</span></th>
         </tr>
       </thead>
       <tbody>
-        <tr class="band"><th colspan="6" scope="colgroup">Synthesis <span class="note">&mdash; source becomes spec, before anything runs</span></th></tr>
+        <tr class="band"><th colspan="7" scope="colgroup">Synthesis <span class="note">&mdash; source becomes spec, before anything runs</span></th></tr>
 
         <tr>
           <td class="factor"><span class="rn">I</span><span class="fname"><a href="/honor-the-lower-layer/">Honor the lower layer</a></span><span class="fstate">Build in the platform's own terms, readable and predictable before anything runs.</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Fold to native spec, no run</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Folds via its own DSL</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Folds via Pkl; source is the truth</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Holds the real spec (KRM) as data</span></td>
           <td class="cell bad"><span class="s">&#10007;</span><span class="note">Spec exists only after the program runs</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Declarative, but the real plan needs cloud + state</span></td>
         </tr>
@@ -42,6 +44,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Type + fold diagnostics at the keystroke, human and agent alike</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Schema check plus an LSP</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Pkl types + LSP</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Validated in the store, not at an editor keystroke</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">TS types check; infra correctness needs a plan</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note"><span class="mono">validate</span> is shallow; the real check is <span class="mono">plan</span></span></td>
         </tr>
@@ -50,17 +53,19 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Typed lexicons + semantic lint + policy checks</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Schemas and constraints encode validity</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Pkl schemas and value constraints</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">KRM schemas encode validity</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Types encode shape; policy via add-ons</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Thin types; policy via OPA or Sentinel</span></td>
         </tr>
 
-        <tr class="band"><th colspan="6" scope="colgroup">Ops &amp; Lifecycle <span class="note">&mdash; the change reaches production and stays accountable</span></th></tr>
+        <tr class="band"><th colspan="7" scope="colgroup">Ops &amp; Lifecycle <span class="note">&mdash; the change reaches production and stays accountable</span></th></tr>
 
         <tr>
           <td class="factor"><span class="rn">IV</span><span class="fname"><a href="/one-path-to-prod/">One path to prod</a></span><span class="fstate">Every change arrives as a diff, in one place.</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Every change is one typed change set against live</span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Language only; bring your own pipeline</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Reconciles Pkl source to the cloud</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Actuates from the store via ArgoCD / Crossplane</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Deploy through the tool's diff / up</span></td>
           <td class="cell good"><span class="s">&#10003;</span><span class="note"><span class="mono">plan</span> / <span class="mono">apply</span></span></td>
         </tr>
@@ -69,6 +74,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">By reference, never held; keyless signing<sup>1</sup></span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">By reference, but a state database sits in the loop</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">By reference, but the store holds config as data</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs + IAM, but the program can read secrets at runtime</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs, but the state file can capture secrets</span></td>
         </tr>
@@ -77,6 +83,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Owned-only by marker; per-env dial; blast lens</span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Reconcile scope; a state database in the loop</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Actuator-scoped; ownership from live markers</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Stack + IAM boundaries; refs can widen reach</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Module boundaries; shared state couples them</span></td>
         </tr>
@@ -85,6 +92,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Reversible runs ungated; destructive gated + saga rollback</span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Reconciles drift; no reversible / irreversible split</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Revert the store record; no reversible / irreversible split</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">CFN auto-rollback; no reversible / irreversible split</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">No rollback; re-apply a prior state by hand</span></td>
         </tr>
@@ -93,6 +101,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Durable approval gate that survives a crash; orphans escalate</span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval rides the pipeline, not the tool</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Gates in the store's workflow, not at the keystroke</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
         </tr>
@@ -101,6 +110,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">Append-only release ledger + approval in workflow history</span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Pkl in git, plus the reconcile database</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">The store's API records who changed what</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">CloudTrail / pipeline logs, outside the tool</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">State history / CI logs, outside the tool</span></td>
         </tr>
@@ -109,6 +119,7 @@
           <td class="cell good"><span class="s">&#10003;</span><span class="note">By-reference makes rotation an out-of-band routine change<sup>2</sup></span></td>
           <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">By reference; the database can hold the value</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">By reference; the store holds the config</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Runtime reads or state can pin the value</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">A state-captured secret needs state surgery</span></td>
         </tr>
@@ -117,7 +128,7 @@
   </div>
 
   <div class="sc-closing">
-    <p>Read down the columns and the shape is a division of labor, not a ranking. The <span class="term">config languages</span> clear synthesis and stop there, so the ops and lifecycle band is out of scope and you assemble it yourself. <span class="term">Formae</span> takes the Pkl half further, reconciling source to the cloud, and keeps a state database in the loop. <span class="term">CDK and Pulumi</span> own operations but run your program to get there, so the spec doesn't exist until execution. <span class="term">Terraform and OpenTofu</span> operate through a state file, and their real check is a cloud plan that lands after the commit.</p>
+    <p>Read down the columns and the shape is a division of labor, not a ranking. The <span class="term">config languages</span> clear synthesis and stop there, so the ops and lifecycle band is out of scope and you assemble it yourself. <span class="term">Formae</span> reconciles Pkl source to the cloud, and <span class="term">ConfigHub</span> holds the spec as data in a store and actuates from it. Both get ownership right, from live markers rather than a record, and both keep a database in the loop. <span class="term">CDK and Pulumi</span> own operations but run your program to get there, so the spec doesn't exist until execution. <span class="term">Terraform and OpenTofu</span> operate through a state file, and their real check is a cloud plan that lands after the commit.</p>
     <p>chant reaches every row because it folds source to the native spec <span class="term">by construction</span>, then carries that same change set through approval, rollback, and a record, with no state database to keep. It got there first. The columns are wide on purpose &mdash; there is room for more, and nothing here is chant's to keep.</p>
   </div>
 
