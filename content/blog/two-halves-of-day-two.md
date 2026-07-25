@@ -2,13 +2,13 @@
 title: "The two halves of day two"
 date: 2026-07-24
 slug: "two-halves-of-day-two"
-description: "Day two hides two jobs, authoring and applying. One can become day one again; the other needs an executor."
+description: "The onboarding test runs on day one and every day after. Day two is authoring and applying, and the factors test both."
 ---
 
-Day two hides two jobs under one name, and a tool usually brings one of them.
+[Jake Gaylor](https://jakegaylor.com/blog/posts/agent-ready-infrastructure/) put the onboarding test plainly. Could a competent stranger operate your system on day one, from what is written down, through paths you can review, with consequences you can survive? The stranger is a person or an agent. Both have to onboard, and the question does not change between them.
 
-The first is authoring. When the source compiles to the platform's own spec, and that spec is settled from the text before anything runs, a change on day two is the same act as a change on day one. Edit the source, read the diff, apply. Operating is authoring, so there is nothing new to learn on top of it. That is [Honor the lower layer](/honor-the-lower-layer/) and [The same check, left of the commit](/correctness-left-of-the-commit/).
+Day one is the easy half to picture. The stranger reads the source and makes a change. That only works when the source sits on the platform's own spec, honored rather than reimplemented, so what they read is what ships and they can predict it before anything runs. [Honor the lower layer](/honor-the-lower-layer/) is that property. With it, authoring stops being a discipline of its own, because the thing you edit is the thing that runs.
 
-The second is applying, and it stays hard. A real change touches a running system, with steps that fail partway, actions that cannot be undone, and points where a human has to say yes. That is execution, and it needs an executor that brings a retry, a gate, a way back, and a record of who allowed it. A compiler does not give you that half, and an orchestrator does not give you the first.
+The test is day one and every day after, and every day after is a second job. A change has to apply. It runs against a live system, where steps fail halfway, some actions cannot be taken back, and some should wait for a person to say yes. That is execution, and execution needs an executor, one that retries, gates, and keeps a record of what ran. Honoring the lower layer gives you the first job and none of the second.
 
-Accessible Ops tests both. A system is onboardable when a newcomer can predict the spec before it runs and the risky change still waits for a human. Day two was always authoring plus an executor no one wrote down. Write the executor down, keep the authoring honest, and it stops being a second thing to learn.
+Accessible Ops is the test for both. The synthesis factors ask whether the stranger can predict the spec before it runs. The lifecycle factors ask whether the risky change stops for a human and the reversible one goes through. A system a stranger can operate on day one, and on every day after, is one that answered both.
