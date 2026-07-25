@@ -123,6 +123,45 @@
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">Runtime reads or state can pin the value</span></td>
           <td class="cell warn"><span class="s">&#9686;</span><span class="note">A state-captured secret needs state surgery</span></td>
         </tr>
+
+        <tr class="band"><th colspan="7" scope="colgroup">Truth &amp; trust <span class="note">&mdash; truth stays live, adoption stays in place, and the artifact is verified</span></th></tr>
+
+        <tr>
+          <td class="factor"><span class="rn">XI</span><span class="fname"><a href="/truth-lives-live/">The live system is the truth</a></span><span class="fstate">Truth lives in the running system, never a separate store you host.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Truth left in the live system; no state store</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Language only; no state model</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">Requires a state database</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">The store is the source of truth</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">Keeps authoritative state (CFN stack / Pulumi state)</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">The state file is the authority</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">XII</span><span class="fname"><a href="/adopt-in-place/">Adopt in place</a></span><span class="fstate">Existing infrastructure comes under management in place, without conversion to a private format.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Imports a template or live estate; the spec stays native</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Consumes existing config, but authoring is a rewrite</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Reconciles an existing estate into Pkl</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Imports into the store; leaving means exporting</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Import into state, then rewrite as code</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Import into state, then rewrite as HCL</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">XIII</span><span class="fname"><a href="/manage-only-what-you-declare/">Manage only what you declare</a></span><span class="fstate">The tool touches only what you declare and deletes only what it owns.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Selective by omission; deletes gated on an ownership marker</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">No apply; nothing to over-reach</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Reconciles the declared; ownership less explicit</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Ownership from live markers, not the store</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Stack-scoped; absence in the template deletes</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">State conflates ownership; an omission authorizes a delete</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">XIV</span><span class="fname"><a href="/verify-the-artifact/">Verify the artifact</a></span><span class="fstate">A deployable proves itself before it ships, verified where it is built.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">SBOM, provenance, and a signature, checked at synthesis before values fill in</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">No build artifact or gate</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Provenance via external tooling</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Provenance via external tooling</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Provenance via CI add-ons (cosign, SLSA)</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Provenance via CI add-ons</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
