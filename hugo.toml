@@ -5,7 +5,7 @@ disableKinds = ["taxonomy", "term"]
 
 [params]
   description = "The properties that make infrastructure safe to hand off, to a person or an agent."
-  tagline = "Build infrastructure a competent stranger can operate on day one — whether the stranger is a person or an agent."
+  tagline = "Infrastructure safe to hand off, to a person or an agent."
   # PostHog analytics. posthogApiKey is left unset here and supplied at build
   # time via the HUGO_PARAMS_POSTHOGAPIKEY env var (see .github/workflows/hugo.yml),
   # so no key is committed to the repo and local builds don't send events.
