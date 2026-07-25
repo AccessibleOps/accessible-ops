@@ -128,7 +128,9 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 
 /* ---- responsive ---- */
 @media (max-width: 40rem) {
-  .sc-bands { grid-template-columns: 1fr; }
+  .prop > summary { display: block; }
+  .prop-lead::after { display: none; }
+  .prop-tagline { display: block; margin-top: 0.1rem; }
 }
 @media (max-width: 34rem) {
   body { font-size: 17px; }
