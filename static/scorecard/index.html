@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who clears the Accessible Ops factors</title>
+<meta name="description" content="A scorecard of which infrastructure tools clear each Accessible Ops factor today, across synthesis, ops, and lifecycle.">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #ffffff;
+    --panel: #fbfbf9;
+    --panel-2: #f6f6f3;
+    --ink: #1a1a1a;
+    --muted: #666666;
+    --faint: #949494;
+    --rule: #e4e4e4;
+    --rule-strong: #d3d3d0;
+    --link: #1a5fb4;
+    --link-soft: rgba(26, 95, 180, 0.08);
+    --good: #2e7d4f;
+    --warn: #ab741a;
+    --bad: #b23a30;
+    --na: #b3b3b3;
+    --good-bg: rgba(46, 125, 79, 0.08);
+    --warn-bg: rgba(171, 116, 26, 0.08);
+    --bad-bg: rgba(178, 58, 48, 0.07);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #17181c;
+      --panel: #1d1e23;
+      --panel-2: #212228;
+      --ink: #e7e7e4;
+      --muted: #a2a29c;
+      --faint: #77776f;
+      --rule: #2c2d33;
+      --rule-strong: #3a3b42;
+      --link: #7aa6e6;
+      --link-soft: rgba(122, 166, 230, 0.12);
+      --good: #63c58c;
+      --warn: #d7a24e;
+      --bad: #e07b6f;
+      --na: #63636b;
+      --good-bg: rgba(99, 197, 140, 0.11);
+      --warn-bg: rgba(215, 162, 78, 0.11);
+      --bad-bg: rgba(224, 123, 111, 0.10);
+    }
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg:#ffffff; --panel:#fbfbf9; --panel-2:#f6f6f3; --ink:#1a1a1a; --muted:#666666; --faint:#949494;
+    --rule:#e4e4e4; --rule-strong:#d3d3d0; --link:#1a5fb4; --link-soft:rgba(26,95,180,0.08);
+    --good:#2e7d4f; --warn:#ab741a; --bad:#b23a30; --na:#b3b3b3;
+    --good-bg:rgba(46,125,79,0.08); --warn-bg:rgba(171,116,26,0.08); --bad-bg:rgba(178,58,48,0.07);
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:#17181c; --panel:#1d1e23; --panel-2:#212228; --ink:#e7e7e4; --muted:#a2a29c; --faint:#77776f;
+    --rule:#2c2d33; --rule-strong:#3a3b42; --link:#7aa6e6; --link-soft:rgba(122,166,230,0.12);
+    --good:#63c58c; --warn:#d7a24e; --bad:#e07b6f; --na:#63636b;
+    --good-bg:rgba(99,197,140,0.11); --warn-bg:rgba(215,162,78,0.11); --bad-bg:rgba(224,123,111,0.10);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 18px; line-height: 1.62; -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.92em; }
+  .wrap { max-width: 64rem; margin: 0 auto; padding: clamp(2.4rem, 5vw, 4rem) clamp(1.1rem, 4vw, 2rem) 4rem; }
+  .reading { max-width: 42rem; }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 2px; }
+
+  header { border-top: 3px solid var(--ink); padding-top: 1.5rem; }
+  .eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.19em; text-transform: uppercase; color: var(--muted);
+    margin: 0 0 1.1rem; font-weight: 600;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 4.6vw, 2.85rem); line-height: 1.08; letter-spacing: -0.02em;
+    font-weight: 700; margin: 0 0 1.1rem; text-wrap: balance; max-width: 16ch;
+  }
+  .lede { font-size: 1.06rem; color: var(--ink); margin: 0 0 1.2rem; }
+  .lede .term { font-weight: 600; }
+  .sub { color: var(--muted); font-size: 1.0rem; margin: 0; }
+  .sub a { font-weight: 500; }
+
+  /* three-band key */
+  .key { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; margin: 2.4rem 0 2rem; }
+  .key > div { background: var(--bg); padding: 0.95rem 1.05rem; }
+  .key h3 { margin: 0 0 0.35rem; font-size: 0.72rem; letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--link); font-weight: 700; }
+  .key p { margin: 0; font-size: 0.88rem; color: var(--muted); line-height: 1.48; }
+  @media (max-width: 40rem) { .key { grid-template-columns: 1fr; } }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 0.45rem 1.5rem; align-items: center;
+    margin: 0 0 0.9rem; font-size: 0.85rem; color: var(--muted); }
+  .legend span { display: inline-flex; align-items: baseline; gap: 0.5rem; }
+  .sym { font-weight: 700; width: 1em; text-align: center; }
+  .sym.good { color: var(--good); } .sym.warn { color: var(--warn); }
+  .sym.bad { color: var(--bad); }  .sym.na { color: var(--na); }
+
+  /* matrix */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule-strong); border-radius: 8px; background: var(--bg); }
+  table { border-collapse: collapse; width: 100%; min-width: 54rem; }
+  th, td { text-align: left; vertical-align: top; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--rule); }
+  thead th { background: var(--panel-2); border-bottom: 2px solid var(--rule-strong); position: sticky; top: 0; z-index: 2; }
+  thead .th-factor { width: 27%; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--faint); font-weight: 700; }
+  thead .th-tool { font-weight: 700; font-size: 0.98rem; color: var(--ink); width: 18.25%; }
+  thead .th-tool .kind { display: block; font-weight: 400; font-size: 0.75rem; color: var(--faint); margin-top: 0.2rem; }
+
+  .band th { background: var(--panel); border-bottom: 1px solid var(--rule-strong);
+    font-size: 0.72rem; letter-spacing: 0.11em; text-transform: uppercase; color: var(--link);
+    font-weight: 700; padding-top: 0.85rem; padding-bottom: 0.5rem; }
+  .band th .note { text-transform: none; letter-spacing: 0; color: var(--faint); font-weight: 400; }
+
+  td.factor .rn { color: var(--link); font-weight: 700; font-variant-numeric: tabular-nums;
+    margin-right: 0.55rem; font-size: 0.82rem; letter-spacing: 0.02em; }
+  td.factor .fname { font-weight: 650; }
+  td.factor .fname a { color: var(--ink); }
+  td.factor .fname a:hover { color: var(--link); }
+  td.factor .fstate { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.4; }
+
+  td.cell { font-size: 0.84rem; }
+  td.cell .s { font-weight: 700; margin-right: 0.5rem; font-family: ui-monospace, Menlo, monospace; }
+  td.cell.good { background: var(--good-bg); } td.cell.good .s { color: var(--good); }
+  td.cell.warn { background: var(--warn-bg); } td.cell.warn .s { color: var(--warn); }
+  td.cell.bad  { background: var(--bad-bg); }  td.cell.bad  .s { color: var(--bad); }
+  td.cell.na   .s { color: var(--na); } td.cell.na { color: var(--faint); }
+  td.cell .note { color: var(--muted); }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* closing note */
+  .closing { margin: 2.6rem 0 0; padding: 1.2rem 1.35rem; background: var(--panel); border: 1px solid var(--rule);
+    border-radius: 8px; }
+  .closing p { margin: 0; color: var(--muted); font-size: 0.96rem; }
+  .closing p + p { margin-top: 0.7rem; }
+  .closing .term { color: var(--ink); font-weight: 600; }
+
+  .notes { margin: 2.2rem 0 0; }
+  .notes h4 { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint);
+    margin: 0 0 0.7rem; font-weight: 700; }
+  .notes ol { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; }
+  .notes li { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .notes b { color: var(--ink); font-weight: 600; }
+
+  footer.page { margin-top: 2.4rem; padding-top: 1.2rem; border-top: 1px solid var(--rule);
+    font-size: 0.82rem; color: var(--faint); }
+  footer.page a { color: var(--muted); }
+  sup { font-size: 0.7em; color: var(--faint); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="reading">
+    <p class="eyebrow">The Accessible Ops factors, in practice</p>
+    <h1>Who clears the factors today</h1>
+    <p class="lede">
+      The factors set a bar for infrastructure you can hand to a newcomer, human or agent. Clearing them takes work in
+      three places: <span class="term">synthesis</span>, turning source into the platform's native spec before anything
+      runs; <span class="term">ops</span>, how a change reaches production; and <span class="term">lifecycle</span>,
+      the approval, rollback, and record around it.
+    </p>
+    <p class="sub">
+      This is a snapshot of which tools clear which factors right now. chant clears the whole list first, but the checks
+      aren't chant's to keep &mdash; each one names a property any tool can earn, and the others are moving. The bar is
+      the spec described on this site.
+    </p>
+  </header>
+
+  <section class="key reading" aria-label="The three bands" style="max-width:none;">
+    <div><h3>Synthesis</h3><p>Source becomes the platform's own spec, worked out from the text and settled before anything is touched.</p></div>
+    <div><h3>Ops</h3><p>A change reaches production as one reviewable diff, scoped to what it declares.</p></div>
+    <div><h3>Lifecycle</h3><p>The risky call waits for a human, the reversible one runs, and every change leaves a record.</p></div>
+  </section>
+
+  <div class="legend" role="note" aria-label="Legend">
+    <span><b class="sym good">&#10003;</b> meets by design</span>
+    <span><b class="sym warn">&#9686;</b> partial &mdash; via add-ons, pipeline, or by hand</span>
+    <span><b class="sym bad">&#10007;</b> misses &mdash; the property doesn't hold</span>
+    <span><b class="sym na">&ndash;</b> out of scope for this kind of tool</span>
+  </div>
+
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th class="th-factor" scope="col">Factor</th>
+          <th class="th-tool" scope="col">chant<span class="kind">TypeScript-as-Data, folded</span></th>
+          <th class="th-tool" scope="col">KCL &middot; CUE &middot; Pkl<span class="kind">typed config languages</span></th>
+          <th class="th-tool" scope="col">CDK &middot; Pulumi<span class="kind">TypeScript run as a program</span></th>
+          <th class="th-tool" scope="col">Terraform &middot; OpenTofu<span class="kind">HCL + state file</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="band"><th colspan="5" scope="colgroup">Synthesis <span class="note">&mdash; source becomes spec, before anything runs</span></th></tr>
+
+        <tr>
+          <td class="factor"><span class="rn">I</span><span class="fname"><a href="https://accessibleops.net/honor-the-lower-layer/">Honor the lower layer</a></span><span class="fstate">Build in the platform's own terms, readable and predictable before anything runs.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Fold to native spec, no run</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Folds via its own DSL</span></td>
+          <td class="cell bad"><span class="s">&#10007;</span><span class="note">Spec exists only after the program runs</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Declarative, but the real plan needs cloud + state</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">II</span><span class="fname"><a href="https://accessibleops.net/correctness-left-of-the-commit/">The same check, left of the commit</a></span><span class="fstate">A change proves itself at the keystroke, the same check for a human and an agent.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Type + fold diagnostics at the keystroke, human and agent alike</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Schema check plus an LSP</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">TS types check; infra correctness needs a plan</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note"><span class="mono">validate</span> is shallow; the real check is <span class="mono">plan</span></span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">III</span><span class="fname"><a href="https://accessibleops.net/documentation-is-law/">Documentation is Law</a></span><span class="fstate">The parts a machine can't infer belong in writing.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Typed lexicons + semantic lint + policy checks</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Schemas and constraints encode validity</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Types encode shape; policy via add-ons</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Thin types; policy via OPA or Sentinel</span></td>
+        </tr>
+
+        <tr class="band"><th colspan="5" scope="colgroup">Ops &amp; Lifecycle <span class="note">&mdash; the change reaches production and stays accountable</span></th></tr>
+
+        <tr>
+          <td class="factor"><span class="rn">IV</span><span class="fname"><a href="https://accessibleops.net/one-path-to-prod/">One path to prod</a></span><span class="fstate">Every change arrives as a diff, in one place.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Every change is one typed change set against live</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Language only; bring your own pipeline</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Deploy through the tool's diff / up</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note"><span class="mono">plan</span> / <span class="mono">apply</span></span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">V</span><span class="fname"><a href="https://accessibleops.net/named-secrets-least-privilege/">Named secrets, least privilege</a></span><span class="fstate">Access stays scoped and revocable; secrets referenced by name, not held.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">By reference, never held; keyless signing<sup>1</sup></span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs + IAM, but the program can read secrets at runtime</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Refs, but the state file can capture secrets</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VI</span><span class="fname"><a href="https://accessibleops.net/bounded-blast-radius/">Bounded blast radius</a></span><span class="fstate">One mistake can't take down everything.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Owned-only by marker; per-env dial; blast lens</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Stack + IAM boundaries; refs can widen reach</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Module boundaries; shared state couples them</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VII</span><span class="fname"><a href="https://accessibleops.net/reversible-before-risky/">Reversible before risky</a></span><span class="fstate">Undoable actions run; irreversible ones wait for a human.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Reversible runs ungated; destructive gated + saga rollback</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">CFN auto-rollback; no reversible / irreversible split</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">No rollback; re-apply a prior state by hand</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">VIII</span><span class="fname"><a href="https://accessibleops.net/escalate-the-judgment/">Escalate the judgment</a></span><span class="fstate">The newcomer executes; a human owns the call that matters.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Durable approval gate that survives a crash; orphans escalate</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Approval in the CI pipeline, not the tool</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">IX</span><span class="fname"><a href="https://accessibleops.net/attributable/">Attributable</a></span><span class="fstate">Every change traces to who made it, what changed, and who approved it.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">Append-only release ledger + approval in workflow history</span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">CloudTrail / pipeline logs, outside the tool</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">State history / CI logs, outside the tool</span></td>
+        </tr>
+        <tr>
+          <td class="factor"><span class="rn">X</span><span class="fname"><a href="https://accessibleops.net/secret-rotation-is-cheap/">Secret rotation is cheap</a></span><span class="fstate">Any credential can be rotated as a routine change.</span></td>
+          <td class="cell good"><span class="s">&#10003;</span><span class="note">By-reference makes rotation an out-of-band routine change<sup>2</sup></span></td>
+          <td class="cell na"><span class="s">&ndash;</span><span class="note">Out of scope</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">Runtime reads or state can pin the value</span></td>
+          <td class="cell warn"><span class="s">&#9686;</span><span class="note">A state-captured secret needs state surgery</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="closing reading" style="max-width:none;">
+    <p>
+      Read down the columns and the shape is a division of labor, not a ranking. The <span class="term">config
+      languages</span> clear synthesis and stop there: they are values, not operators, so the ops and lifecycle band is
+      out of scope and you assemble it yourself. <span class="term">CDK and Pulumi</span> own operations but run your
+      program to get there, so the spec doesn't exist until execution. <span class="term">Terraform and OpenTofu</span>
+      operate through a state file, and their real check is a cloud plan that lands after the commit.
+    </p>
+    <p>
+      chant reaches every row because it folds source to the native spec <span class="term">by construction</span>,
+      then carries that same change set through approval, rollback, and a record. It got there first. The columns are
+      wide on purpose &mdash; there is room for more of them, and nothing here is chant's to keep.
+    </p>
+  </div>
+
+  <div class="notes reading" style="max-width:none;">
+    <h4>Notes</h4>
+    <ol>
+      <li><b>Scoping and revocation are provider-native</b> (OIDC expiry, IAM). A tool's part is to reference a secret by name and never hold it, and to flag over-broad permissions at author time.</li>
+      <li><b>Rotation is cheap as a consequence, not a command.</b> When a secret enters only by reference and never lands in source or state, rotating the underlying credential is an out-of-band change the source never sees.</li>
+      <li><b>Formae</b> (Pkl-based) adds a reconcile loop and lifecycle, but authors in a config DSL and keeps a state database, so it sits with the config-language band on synthesis and carries the state the folded tools drop.</li>
+      <li><b>&#8220;Folds by construction&#8221;</b> means synthesis reduces the source to spec with no module execution &mdash; a call-as-value is structurally unrepresentable, and the semantic lint is a pre-flight diagnostic rather than the guarantee.</li>
+    </ol>
+  </div>
+
+  <footer class="page reading" style="max-width:none;">
+    The factors are the spec on this site. This scorecard reads the common tools against them, and will age as they change.
+  </footer>
+</div>
+</body>
+</html>
