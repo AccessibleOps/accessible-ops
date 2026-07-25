@@ -49,6 +49,8 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 
 /* home property bars */
 .props { margin: 1.2rem 0 0; max-width: 44rem; }
+.band-head { font-size: 0.68rem; letter-spacing: 0.11em; text-transform: uppercase; color: var(--link); font-weight: 700; margin: 1.7rem 0 0.15rem; }
+.band-head:first-child { margin-top: 0.4rem; }
 .prop { border-top: 1px solid var(--rule); }
 .props .prop:last-of-type { border-bottom: 1px solid var(--rule); }
 .prop > summary {
