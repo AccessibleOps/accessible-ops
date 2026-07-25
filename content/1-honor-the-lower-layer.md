@@ -4,13 +4,11 @@ slug: "honor-the-lower-layer"
 weight: 1
 roman: "I"
 part: "factor"
-summary: "A real language compiled to the platform's own spec, and fixed enough to check without running."
+summary: "Know the platform underneath, build on it in its own terms, and be able to predict its spec before anything runs."
 ---
 
-Honoring the lower layer takes two things, and most tools stop after the first.
+Honoring the lower layer means the operator knows how the platform underneath works, and builds on it in the platform's own terms. Whatever you stack on top, the platform's own spec stays in view. On Kubernetes, the real thing is the manifest, so the rendered manifests stay where a newcomer can read them. On AWS, CloudFormation is the platform's own record, so you can say what your code becomes in that record.
 
-First, the source is a real language that compiles down to the platform's own spec. When a tool wraps the platform in a second model instead, that model carries its own state, so a newcomer has to reason about the wrapper, the state, and the drift between them. A compiler leaves one artifact, the platform's own spec, and nothing behind it.
+The test is prediction before anything runs. A competent stranger reads the source and says what the platform will be told to do, and is right, from the text alone. The same source always produces the same spec, worked out from what you can read and only that, and settled before the platform is touched.
 
-Second, that artifact is fixed by the source alone, so a person or a machine can check it without running anything. A tool that produces its spec by executing your program has only the first property. You learn what it emits when it runs, and only then. When the output is a pure function of the source, what a newcomer reads is what ships, and they can read it before anything runs.
-
-Most abstractions clear the first line. Clearing both is what separates a compiler from a program that happens to print infrastructure.
+Writing the lower layer by hand is optional. What counts is the property, whatever shape the tool takes. Build as high as you like on top, as long as the spec stays readable and predictable before it runs.
