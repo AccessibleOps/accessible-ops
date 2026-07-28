@@ -74,6 +74,12 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .prop-title { font-weight: 700; color: var(--ink); }
 .prop > summary:hover .prop-title { color: var(--link); }
 .prop-tagline { color: var(--muted); font-size: 0.94rem; }
+.benefits { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
+.benefit-tag {
+  display: inline-block; font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--link); background: var(--panel-2); border: 1px solid var(--rule-strong);
+  border-radius: 999px; padding: 0.1rem 0.55rem; line-height: 1.5;
+}
 .prop[open] { background: var(--panel); }
 .prop-body { padding: 0.1rem 0 1rem 1.35rem; max-width: 42rem; }
 .prop-body > p:first-child { margin-top: 0.2rem; }
@@ -97,8 +103,9 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .factor-num { font-size: 3.2rem; font-weight: 800; color: var(--faint); line-height: 1; margin: 0 0 0.2rem; }
 .factor-lead {
   font-size: 1.3rem; line-height: 1.4; font-weight: 500; color: var(--ink);
-  margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule);
+  margin: 0 0 1rem;
 }
+p.benefits { margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule); }
 .factor code, .page code { background: #f4f4f4; padding: 0.05em 0.35em; border-radius: 3px; font-size: 0.9em; }
 
 /* ---- blog ---- */

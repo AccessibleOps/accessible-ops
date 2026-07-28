@@ -10,7 +10,12 @@
   <details class="prop">
     <summary>
       <span class="prop-lead"><span class="prop-rn">{{ .Params.roman }}</span> <span class="prop-title">{{ .Title }}</span></span>
-      <span class="prop-tagline">{{ .Params.summary }}</span>
+      <span class="prop-tagline">
+        {{ .Params.summary }}
+        {{ with .Params.benefits }}
+        <span class="benefits">{{ range . }}<span class="benefit-tag">{{ . }}</span>{{ end }}</span>
+        {{ end }}
+      </span>
     </summary>
     <div class="prop-body">
       {{ .Content }}
