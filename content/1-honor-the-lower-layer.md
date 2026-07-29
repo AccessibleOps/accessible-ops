@@ -5,6 +5,7 @@ weight: 1
 roman: "I"
 part: "factor"
 summary: "Build in the platform's own terms, and keep its spec readable and predictable before anything runs."
+benefits: ["transparency", "confidence"]
 ---
 
 The operator knows how the platform underneath works. Whatever you stack on top, the platform's own spec stays in view. On Kubernetes, the real thing is the manifest, so the rendered manifests stay where a newcomer can read them. On AWS, CloudFormation is the platform's own record, so you can say what your code becomes in that record.

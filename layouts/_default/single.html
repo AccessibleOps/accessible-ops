@@ -4,6 +4,9 @@
   <h1>{{ .Title }}</h1>
   {{ if and (not .Params.part) (eq .Section "blog") }}<p class="post-date">{{ .Date.Format "January 2, 2006" }}</p>{{ end }}
   {{ with .Params.summary }}<p class="factor-lead">{{ . }}</p>{{ end }}
+  {{ with .Params.benefits }}
+  <p class="benefits">{{ range . }}<span class="benefit-tag">{{ . }}</span>{{ end }}</p>
+  {{ end }}
   {{ .Content }}
 
   {{ if .Params.part }}
