@@ -4,8 +4,8 @@ slug: "bounded-blast-radius"
 weight: 6
 roman: "VI"
 part: "factor"
-summary: "One mistake can't take down everything."
+summary: "A cap on scope, rate, or environment keeps the worst mistake the size of one namespace rather than the whole account."
 benefits: ["confidence"]
 ---
 
-Cap what a single change can touch, by scope, by rate, by environment. The point of a bound is that you can survive the newcomer's worst day, which is the only way delegation is ever safe.
+Delegation is only safe if you can survive the worst day. A cap on scope, rate, or environment keeps the worst mistake the size of one namespace rather than the whole account.
