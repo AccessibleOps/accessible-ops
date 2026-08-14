@@ -55,13 +55,12 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .props .prop:last-of-type { border-bottom: 1px solid var(--rule); }
 .prop > summary {
   list-style: none; cursor: pointer;
-  display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 0.5rem; align-items: baseline;
-  padding: 0.6rem 0 0.6rem 1.4rem; position: relative; line-height: 1.55;
+  padding: 0.7rem 0 0.8rem 1.4rem; position: relative; line-height: 1.5;
 }
 .prop > summary::-webkit-details-marker { display: none; }
 .prop > summary::marker { content: ""; }
 .prop > summary::before {
-  content: ""; position: absolute; left: 0.15rem; top: 0.95rem;
+  content: ""; position: absolute; left: 0.15rem; top: 1.05rem;
   width: 0; height: 0;
   border-left: 5px solid var(--faint);
   border-top: 4px solid transparent; border-bottom: 4px solid transparent;
@@ -69,12 +68,11 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 }
 .prop[open] > summary::before { transform: rotate(90deg); border-left-color: var(--link); }
 @media (prefers-reduced-motion: reduce) { .prop > summary::before { transition: none; } }
-.prop-lead::after { content: "\2013"; color: var(--faint); margin-left: 0.5rem; }
 .prop-rn { color: var(--link); font-weight: 700; font-variant-numeric: tabular-nums; margin-right: 0.4rem; }
 .prop-title { font-weight: 700; color: var(--ink); }
 .prop > summary:hover .prop-title { color: var(--link); }
-.prop-tagline { color: var(--muted); font-size: 0.94rem; }
-.benefits { display: inline-flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.3rem; }
+.prop-tagline { display: block; color: var(--muted); font-size: 0.94rem; margin-top: 0.15rem; max-width: 40rem; }
+.benefits { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
 .benefit-tag {
   display: inline-block; font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
   color: var(--link); background: var(--panel-2); border: 1px solid var(--rule-strong);
@@ -136,11 +134,6 @@ p.benefits { margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px soli
 
 
 /* ---- responsive ---- */
-@media (max-width: 40rem) {
-  .prop > summary { display: block; }
-  .prop-lead::after { display: none; }
-  .prop-tagline { display: block; margin-top: 0.1rem; }
-}
 @media (max-width: 34rem) {
   body { font-size: 17px; }
   .factor-num { font-size: 2.6rem; }
