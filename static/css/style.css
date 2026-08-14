@@ -22,8 +22,8 @@ body {
   font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.6;
-  font-size: 18px;
+  line-height: 1.58;
+  font-size: 17px;
   margin: 0;
 }
 a { color: var(--link); text-decoration: none; }
@@ -44,18 +44,20 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-ra
 .topnav a[aria-current="page"] { color: var(--link); font-weight: 600; }
 
 main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
-.home-intro { max-width: 42rem; margin: 0 0 1.3rem; }
-.home-intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.55; margin: 0; }
+.home-intro { max-width: 38rem; margin: 0 0 2.2rem; }
+.home-intro h2, .props-head { font-size: 1.2rem; line-height: 1.3; margin: 1.9rem 0 0.5rem; }
+.home-intro h2:first-child { margin-top: 0.6rem; }
+.home-intro p { margin: 0.85rem 0; }
 
 /* home property bars */
-.props { margin: 1.2rem 0 0; max-width: 44rem; }
+.props { margin: 0.6rem 0 0; max-width: 38rem; }
 .prop { display: block; border-top: 1px solid var(--rule); padding: 0.7rem 0 0.8rem; line-height: 1.5; }
 .prop:hover { text-decoration: none; }
 .props .prop:last-of-type { border-bottom: 1px solid var(--rule); }
 .prop-rn { color: var(--link); font-weight: 700; font-variant-numeric: tabular-nums; margin-right: 0.4rem; }
 .prop-title { font-weight: 700; color: var(--ink); }
 .prop:hover .prop-title { color: var(--link); text-decoration: underline; }
-.prop-tagline { display: block; color: var(--muted); font-size: 0.94rem; margin-top: 0.15rem; max-width: 40rem; }
+.prop-tagline { display: block; color: var(--muted); font-size: 0.94rem; margin-top: 0.15rem; }
 .benefits { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; margin: 0; }
 .benefit-tag {
   font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase;
@@ -63,8 +65,8 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 }
 
 /* ---- prose blocks ---- */
-.intro, .page, .factor, .post-list { max-width: 42rem; }
-.intro h1, .page h1, .factor h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 1rem; }
+.intro, .page, .factor, .post-list { max-width: 38rem; }
+.intro h1, .page h1, .factor h1 { font-size: 1.75rem; line-height: 1.2; margin: 0 0 1rem; }
 .intro p, .page p, .factor p { margin: 0.85rem 0; }
 .intro blockquote, .page blockquote {
   margin: 1.1rem 0; padding: 0.2rem 0 0.2rem 1.1rem;
@@ -96,7 +98,7 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .pager {
   display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
   margin-top: 3rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); font-size: 0.95rem;
-  max-width: 42rem;
+  max-width: 38rem;
 }
 .pager-prev { text-align: left; flex: 1; }
 .pager-next { text-align: right; flex: 1; }
@@ -104,13 +106,13 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 
 .site-footer {
   margin-top: 3.5rem; padding: 1.4rem 0 3rem; border-top: 1px solid var(--rule);
-  color: var(--muted); font-size: 0.88rem; max-width: 42rem;
+  color: var(--muted); font-size: 0.88rem; max-width: 38rem;
 }
 
 
 /* ---- responsive ---- */
 @media (max-width: 34rem) {
-  body { font-size: 17px; }
+  body { font-size: 16px; }
   .factor-num { font-size: 2.6rem; }
   .pager { flex-direction: column; gap: 0.5rem; }
   .pager-next, .pager-prev { text-align: left; }
