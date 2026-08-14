@@ -4,9 +4,6 @@
 </section>
 <div class="props">
   {{ range (where .Site.RegularPages "Params.part" "factor").ByWeight }}
-  {{ if eq .Weight 1 }}<h2 class="band-head">Synthesis</h2>{{ end }}
-  {{ if eq .Weight 4 }}<h2 class="band-head">Ops &amp; Lifecycle</h2>{{ end }}
-  {{ if eq .Weight 11 }}<h2 class="band-head">Truth &amp; trust</h2>{{ end }}
   <details class="prop">
     <summary>
       <span class="prop-lead"><span class="prop-rn">{{ .Params.roman }}</span> <span class="prop-title">{{ .Title }}</span></span>
