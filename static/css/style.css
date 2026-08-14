@@ -19,10 +19,10 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  font-family: -apple-system, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Georgia, "Times New Roman", serif;
   color: var(--ink);
   background: var(--bg);
-  line-height: 1.62;
+  line-height: 1.6;
   font-size: 18px;
   margin: 0;
 }
@@ -36,7 +36,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-ra
   display: flex; justify-content: space-between; align-items: baseline; gap: 0.7rem 1.4rem; flex-wrap: wrap;
   border-bottom: 1px solid var(--rule);
 }
-.brand { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); }
+.brand { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
 .brand:hover { text-decoration: none; }
 .topnav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.15rem; font-size: 0.92rem; align-items: baseline; }
 .topnav a { color: var(--muted); }
@@ -45,7 +45,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-ra
 
 main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .home-intro { max-width: 42rem; margin: 0 0 1.3rem; }
-.home-intro p { font-size: 0.86rem; color: var(--muted); line-height: 1.5; margin: 0; }
+.home-intro p { font-size: 0.95rem; color: var(--muted); line-height: 1.55; margin: 0; }
 
 /* home property bars */
 .props { margin: 1.2rem 0 0; max-width: 44rem; }
@@ -56,16 +56,15 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 .prop-title { font-weight: 700; color: var(--ink); }
 .prop:hover .prop-title { color: var(--link); text-decoration: underline; }
 .prop-tagline { display: block; color: var(--muted); font-size: 0.94rem; margin-top: 0.15rem; max-width: 40rem; }
-.benefits { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
+.benefits { display: flex; flex-wrap: wrap; gap: 0.2rem 1rem; margin: 0; }
 .benefit-tag {
-  display: inline-block; font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
-  color: var(--link); background: var(--panel-2); border: 1px solid var(--rule-strong);
-  border-radius: 999px; padding: 0.1rem 0.55rem; line-height: 1.5;
+  font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* ---- prose blocks ---- */
 .intro, .page, .factor, .post-list { max-width: 42rem; }
-.intro h1, .page h1, .factor h1 { font-size: 1.9rem; line-height: 1.16; margin: 0 0 1rem; letter-spacing: -0.02em; }
+.intro h1, .page h1, .factor h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 1rem; }
 .intro p, .page p, .factor p { margin: 0.85rem 0; }
 .intro blockquote, .page blockquote {
   margin: 1.1rem 0; padding: 0.2rem 0 0.2rem 1.1rem;
@@ -79,7 +78,7 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
   font-size: 1.3rem; line-height: 1.4; font-weight: 500; color: var(--ink);
   margin: 0 0 1rem;
 }
-p.benefits { margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule); }
+.factor .benefits { margin: 0 0 1.4rem; padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule); }
 .factor code, .page code { background: #f4f4f4; padding: 0.05em 0.35em; border-radius: 3px; font-size: 0.9em; }
 
 /* ---- blog ---- */
