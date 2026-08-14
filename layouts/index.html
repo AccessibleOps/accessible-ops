@@ -2,6 +2,7 @@
 <section class="home-intro">
   {{ .Content }}
 </section>
+<h2 class="props-head">The properties</h2>
 <div class="props">
   {{ range (where .Site.RegularPages "Params.part" "factor").ByWeight }}
   <a class="prop" href="{{ .RelPermalink }}">
