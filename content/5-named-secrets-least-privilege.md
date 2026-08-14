@@ -1,5 +1,6 @@
 ---
-title: "Named secrets, least privilege"
+title: "Credentials"
+slogan: "Named secrets, least privilege"
 slug: "named-secrets-least-privilege"
 aliases: ["/least-privilege-by-handle/"]
 weight: 5

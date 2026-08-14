@@ -1,5 +1,6 @@
 ---
-title: "Honor the lower layer"
+title: "The lower layer"
+slogan: "Honor the lower layer"
 slug: "honor-the-lower-layer"
 weight: 1
 roman: "I"

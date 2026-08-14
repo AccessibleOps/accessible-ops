@@ -1,5 +1,6 @@
 ---
-title: "Adopt in place"
+title: "Adoption"
+slogan: "Adopt in place"
 slug: "adopt-in-place"
 weight: 12
 roman: "XII"

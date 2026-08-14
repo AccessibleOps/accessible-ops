@@ -75,6 +75,7 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 /* ---- factor page ---- */
 .factor { padding-top: 0.4rem; }
 .factor-num { font-size: 3.2rem; font-weight: 800; color: var(--faint); line-height: 1; margin: 0 0 0.2rem; }
+.factor-slogan { font-size: 1.15rem; font-style: italic; color: var(--muted); margin: -0.6rem 0 1rem; }
 .factor-lead {
   font-size: 1.3rem; line-height: 1.4; font-weight: 500; color: var(--ink);
   margin: 0 0 1rem;

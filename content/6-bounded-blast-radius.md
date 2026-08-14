@@ -1,5 +1,6 @@
 ---
-title: "Bounded blast radius"
+title: "Blast radius"
+slogan: "Bounded blast radius"
 slug: "bounded-blast-radius"
 weight: 6
 roman: "VI"
