@@ -49,26 +49,12 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
 
 /* home property bars */
 .props { margin: 1.2rem 0 0; max-width: 44rem; }
-.prop { border-top: 1px solid var(--rule); }
+.prop { display: block; border-top: 1px solid var(--rule); padding: 0.7rem 0 0.8rem; line-height: 1.5; }
+.prop:hover { text-decoration: none; }
 .props .prop:last-of-type { border-bottom: 1px solid var(--rule); }
-.prop > summary {
-  list-style: none; cursor: pointer;
-  padding: 0.7rem 0 0.8rem 1.4rem; position: relative; line-height: 1.5;
-}
-.prop > summary::-webkit-details-marker { display: none; }
-.prop > summary::marker { content: ""; }
-.prop > summary::before {
-  content: ""; position: absolute; left: 0.15rem; top: 1.05rem;
-  width: 0; height: 0;
-  border-left: 5px solid var(--faint);
-  border-top: 4px solid transparent; border-bottom: 4px solid transparent;
-  transition: transform 0.15s ease;
-}
-.prop[open] > summary::before { transform: rotate(90deg); border-left-color: var(--link); }
-@media (prefers-reduced-motion: reduce) { .prop > summary::before { transition: none; } }
 .prop-rn { color: var(--link); font-weight: 700; font-variant-numeric: tabular-nums; margin-right: 0.4rem; }
 .prop-title { font-weight: 700; color: var(--ink); }
-.prop > summary:hover .prop-title { color: var(--link); }
+.prop:hover .prop-title { color: var(--link); text-decoration: underline; }
 .prop-tagline { display: block; color: var(--muted); font-size: 0.94rem; margin-top: 0.15rem; max-width: 40rem; }
 .benefits { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
 .benefit-tag {
@@ -76,14 +62,6 @@ main { max-width: 54rem; margin: 0 auto; padding: 1.3rem 1.5rem 0; }
   color: var(--link); background: var(--panel-2); border: 1px solid var(--rule-strong);
   border-radius: 999px; padding: 0.1rem 0.55rem; line-height: 1.5;
 }
-.prop[open] { background: var(--panel); }
-.prop-body { padding: 0.1rem 0 1rem 1.35rem; max-width: 42rem; }
-.prop-body > p:first-child { margin-top: 0.2rem; }
-.prop-body p { margin: 0.7rem 0; color: var(--ink); font-size: 0.95rem; line-height: 1.6; }
-.prop-body .prop-link { margin-top: 0.9rem; }
-.prop-body .prop-link a { font-size: 0.85rem; color: var(--link); font-weight: 600; }
-.props-more { margin: 1.5rem 0 0; font-size: 0.9rem; }
-.props-more a { font-weight: 600; }
 
 /* ---- prose blocks ---- */
 .intro, .page, .factor, .post-list { max-width: 42rem; }
