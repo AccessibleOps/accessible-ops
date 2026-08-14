@@ -1,5 +1,6 @@
 ---
-title: "Manage only what you declare"
+title: "Ownership"
+slogan: "Manage only what you declare"
 slug: "manage-only-what-you-declare"
 weight: 13
 roman: "XIII"

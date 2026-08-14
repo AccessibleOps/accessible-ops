@@ -1,5 +1,6 @@
 ---
-title: "The live system is the truth"
+title: "State"
+slogan: "The live system is the truth"
 slug: "truth-lives-live"
 weight: 11
 roman: "XI"
