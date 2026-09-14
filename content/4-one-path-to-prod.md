@@ -1,5 +1,6 @@
 ---
-title: "One path to prod"
+title: "Delivery"
+slogan: "One path to prod"
 slug: "one-path-to-prod"
 aliases: ["/one-reviewable-path/"]
 weight: 4

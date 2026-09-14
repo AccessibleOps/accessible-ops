@@ -1,5 +1,6 @@
 ---
-title: "Escalate the judgment"
+title: "Escalation"
+slogan: "Escalate the judgment"
 slug: "escalate-the-judgment"
 weight: 8
 roman: "VIII"

@@ -1,5 +1,5 @@
 ---
-title: "Attributable"
+title: "Attribution"
 slug: "attributable"
 weight: 9
 roman: "IX"

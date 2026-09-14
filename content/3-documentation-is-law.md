@@ -1,5 +1,6 @@
 ---
-title: "Documentation is Law"
+title: "Documentation"
+slogan: "Documentation is Law"
 slug: "documentation-is-law"
 aliases: ["/written-down/"]
 weight: 3

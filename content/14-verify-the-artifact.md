@@ -1,5 +1,6 @@
 ---
-title: "Verify the artifact"
+title: "Provenance"
+slogan: "Verify the artifact"
 slug: "verify-the-artifact"
 weight: 14
 roman: "XIV"

@@ -1,5 +1,6 @@
 ---
-title: "Reversible before risky"
+title: "Reversibility"
+slogan: "Reversible before risky"
 slug: "reversible-before-risky"
 weight: 7
 roman: "VII"

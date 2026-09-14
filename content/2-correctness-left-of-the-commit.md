@@ -1,5 +1,6 @@
 ---
-title: "The same check, left of the commit"
+title: "Checks"
+slogan: "The same check, left of the commit"
 slug: "correctness-left-of-the-commit"
 aliases: ["/same-feedback-guides-both/"]
 weight: 2

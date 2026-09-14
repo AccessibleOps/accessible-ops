@@ -1,5 +1,6 @@
 ---
-title: "Secret rotation is cheap"
+title: "Rotation"
+slogan: "Secret rotation is cheap"
 slug: "secret-rotation-is-cheap"
 weight: 10
 roman: "X"
