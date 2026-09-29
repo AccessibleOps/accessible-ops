@@ -24,7 +24,7 @@ margin = 90
 
 # Faint oversized numeral, echoing the numbered-properties list style used
 # on the factor pages (.factor-num).
-draw.text((W - 60, H - 60), "14", font=bold(260), fill=(238, 238, 236), anchor="rs")
+draw.text((W - 60, H - 60), "17", font=bold(260), fill=(238, 238, 236), anchor="rs")
 
 # Eyebrow label
 draw.text((margin, 112), "A C C E S S I B L E   O P S", font=bold(22), fill=LINK)
