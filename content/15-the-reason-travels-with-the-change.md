@@ -4,8 +4,8 @@ slug: "the-reason-travels-with-the-change"
 weight: 15
 roman: "XV"
 part: "factor"
-summary: "Each change names the decision it carries out, so rewriting history leaves the answer to why intact."
+summary: "Each change carries the name of the decision behind it through every rebase and squash."
 benefits: ["transparency"]
 ---
 
-A commit is a place in history, and places move. Each change names the decision it carries out, so rewriting history leaves the answer to why intact.
+History gets rewritten. Each change carries the name of the decision behind it through every rebase and squash.
